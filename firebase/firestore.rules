@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Memory collection - agent read/write
+    match /memory/{docId} {
+      allow read, write: if request.auth != null;
+    }
+    // Agent Bus - real-time agent communication
+    match /agent-bus/{taskId} {
+      allow read, write: if request.auth != null;
+    }
+    // Task Queue
+    match /queue/{taskId} {
+      allow read, write: if request.auth != null;
+    }
+    // Research outputs
+    match /research/{docId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
